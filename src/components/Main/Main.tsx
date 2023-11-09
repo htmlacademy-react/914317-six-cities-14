@@ -1,5 +1,7 @@
 import OfferList from '../../components/OfferList/OfferList';
 import { Offers } from '../../types/offer';
+import Map from '../../components/Map/Map';
+import { useState } from 'react';
 
 type MainProps = {
   cardsCount: number;
@@ -7,6 +9,12 @@ type MainProps = {
 }
 
 function Main({ cardsCount, offers }: MainProps): JSX.Element {
+
+  const [hoveredOfferId, setHoveredOfferId] = useState('');
+
+  const handleItemHover = (currentId: string) => {
+    setHoveredOfferId(currentId);
+  };
 
   return (
     <main className="page__main page__main--index">
@@ -70,11 +78,13 @@ function Main({ cardsCount, offers }: MainProps): JSX.Element {
             <OfferList
               cardsCount={cardsCount}
               offers={offers}
+              onItemHover={handleItemHover}
             />
           </section>
-          <div className="cities__right-section">
-            <section className="cities__map map"></section>
-          </div>
+          <Map
+            offers={offers}
+            hoveredOfferId = {hoveredOfferId}
+          />
         </div>
       </div>
     </main>

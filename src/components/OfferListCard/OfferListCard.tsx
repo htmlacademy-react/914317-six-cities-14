@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 type OfferListCardProps = {
   offers: Offers;
-  onMouseMove: (id: number, isHover: boolean)=> void;
+  onMouseMove: (id: string)=> void;
 };
 
 function OfferListCard({ offers,onMouseMove }: OfferListCardProps): JSX.Element {
@@ -14,11 +14,11 @@ function OfferListCard({ offers,onMouseMove }: OfferListCardProps): JSX.Element 
         <article key = {item.id} className="cities__card place-card"
           onMouseEnter = {(evt) => {
             evt.preventDefault();
-            onMouseMove(item.id,true);
+            onMouseMove(item.id);
           }}
           onMouseLeave = {(evt) => {
             evt.preventDefault();
-            onMouseMove(item.id,false);
+            onMouseMove('');
           }}
         >
           <div className="place-card__mark">

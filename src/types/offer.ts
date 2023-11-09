@@ -1,38 +1,45 @@
 export type CurrentOffer = {
-  bedrooms: number;
+  id: string;
+  title: string;
+  type: string;
+  price: number;
   city: {
+    name: string;
     location: {
       latitude: number;
       longitude: number;
       zoom: number;
     };
-    name: string;
   };
-  description: string;
-  goods: [string];
-  host: {
-    avatarUrl: string;
-    id: number;
-    isPro: boolean;
-    name: string;
-  };
-  id: number;
-  images: [string];
-  isFavorite: boolean;
-  isPremium: boolean;
   location: {
     latitude: number;
     longitude: number;
     zoom: number;
   };
-  maxAdults: number;
-  previewImage: string;
-  price: number;
+  isFavorite: boolean;
+  isPremium: boolean;
   rating: number;
-  title: string;
-  type: string;
+  description: string;
+  bedrooms: number;
+  goods: [string];
+  host: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  images: [string];
+  maxAdults: number;
 }
 
 export type Offers = CurrentOffer[];
+
+export type City = {
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  name: string;
+};
 
 export type HoverCard = readonly boolean[];
