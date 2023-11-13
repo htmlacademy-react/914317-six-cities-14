@@ -1,11 +1,11 @@
-import { Offers } from '../../types/offer';
+import { FullOffers } from '../../types/offer';
 import FavouritesList from '../../components/FavouritesList/FavouritesList';
 
 type FavouritesProps = {
-  offers: Offers;
+  fullOffers: FullOffers;
 }
 
-function FavouritesPage({ offers }: FavouritesProps): JSX.Element {
+function FavouritesPage({ fullOffers }: FavouritesProps): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -43,7 +43,7 @@ function FavouritesPage({ offers }: FavouritesProps): JSX.Element {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               <FavouritesList
-                offers={offers}
+                fullOffers={fullOffers}
               />
             </ul>
           </section>

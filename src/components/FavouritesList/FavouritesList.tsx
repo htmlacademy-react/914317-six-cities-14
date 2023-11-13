@@ -1,11 +1,11 @@
-import { Offers } from '../../types/offer';
+import { FullOffers } from '../../types/offer';
 import FavouritesListCard from '../../components/FavouritesListCard/FavouritesListCard';
 
 type FavouritesListProps = {
-  offers: Offers;
+  fullOffers: FullOffers;
 }
 
-function FavouritesList({ offers }: FavouritesListProps): JSX.Element {
+function FavouritesList({ fullOffers }: FavouritesListProps): JSX.Element {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
@@ -17,7 +17,7 @@ function FavouritesList({ offers }: FavouritesListProps): JSX.Element {
       </div>
       <div className="favorites__places">
         <FavouritesListCard
-          offers={offers}
+          fullOffers={fullOffers}
         />
       </div>
     </li>

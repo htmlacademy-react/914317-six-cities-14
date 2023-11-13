@@ -1,14 +1,15 @@
 import useMap from '../Hooks/useMap';
 import { useRef, useEffect } from 'react';
-import { Offers } from '../../types/offer';
+import { ListOffers } from '../../types/offer';
 import { URL_MARKER_DEFAULT,URL_MARKER_CURRENT } from '../const';
 
 import 'leaflet/dist/leaflet.css';
 import { Icon, Marker, layerGroup } from 'leaflet';
 
 type MapProps = {
-  offers: Offers;
+  listOffers: ListOffers;
   hoveredOfferId: string;
+  className: string;
 }
 
 const defaultCustomIcon = new Icon({
@@ -23,11 +24,11 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({ offers, hoveredOfferId }: MapProps): JSX.Element {
+function Map({ listOffers, hoveredOfferId, className }: MapProps): JSX.Element {
 
-  const selectedPoint = offers.find((point) => point.id === hoveredOfferId);
+  const selectedPoint = listOffers.find((point) => point.id === hoveredOfferId);
 
-  const firstOffer = offers.slice(0, 1)[0];
+  const firstOffer = listOffers.slice(0, 1)[0];
   const city = firstOffer.city;
 
   const mapRef = useRef(null);
@@ -36,7 +37,7 @@ function Map({ offers, hoveredOfferId }: MapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      offers.forEach(({id,location}) => {
+      listOffers.forEach(({id,location}) => {
         const marker = new Marker({
           lat: location.latitude,
           lng: location.longitude,
@@ -53,12 +54,10 @@ function Map({ offers, hoveredOfferId }: MapProps): JSX.Element {
       });
 
     }
-  }, [map, offers, selectedPoint]);
+  }, [map, listOffers, selectedPoint]);
 
   return (
-    <div className="cities__right-section">
-      <section className="cities__map map" ref = {mapRef}></section>
-    </div>
+    <section className={`${className}`} ref = {mapRef}></section>
   );
 
 }

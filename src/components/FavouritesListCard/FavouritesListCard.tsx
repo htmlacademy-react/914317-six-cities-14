@@ -1,15 +1,15 @@
-import { Offers } from '../../types/offer';
+import { FullOffers } from '../../types/offer';
 import { Link } from 'react-router-dom';
 
 type FavouritesListCardProps = {
-  offers: Offers;
+  fullOffers: FullOffers;
 }
 
-function FavouritesListCard({ offers }: FavouritesListCardProps): JSX.Element {
+function FavouritesListCard({ fullOffers }: FavouritesListCardProps): JSX.Element {
 
   return (
     <>
-      {offers.map((item) => (
+      {fullOffers.map((item) => (
         <article key={item.id} className="favorites__card place-card">
           <div className="place-card__mark">
             <span>Premium</span>
