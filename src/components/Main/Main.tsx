@@ -1,14 +1,14 @@
 import OfferList from '../../components/OfferList/OfferList';
-import { Offers } from '../../types/offer';
-import Map from '../../components/Map/Map';
+import { ListOffers } from '../../types/offer';
+import MapProxy from '../../components/Map/MapProxy';
 import { useState } from 'react';
 
 type MainProps = {
   cardsCount: number;
-  offers: Offers;
+  listOffers: ListOffers;
 }
 
-function Main({ cardsCount, offers }: MainProps): JSX.Element {
+function Main({ cardsCount, listOffers }: MainProps): JSX.Element {
 
   const [hoveredOfferId, setHoveredOfferId] = useState('');
 
@@ -77,14 +77,18 @@ function Main({ cardsCount, offers }: MainProps): JSX.Element {
             </form>
             <OfferList
               cardsCount={cardsCount}
-              offers={offers}
+              listOffers = {listOffers}
+              isNeibourgh = {false}
               onItemHover={handleItemHover}
             />
           </section>
-          <Map
-            offers={offers}
-            hoveredOfferId = {hoveredOfferId}
-          />
+          <div className="cities__right-section">
+            <MapProxy
+              listOffers={listOffers}
+              hoveredOfferId = {hoveredOfferId}
+              className='cities__map'
+            />
+          </div>
         </div>
       </div>
     </main>

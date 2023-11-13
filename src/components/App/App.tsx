@@ -8,14 +8,18 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthState, AppRoute } from '../../const';
-import { Offers } from '../../types/offer';
+import { FullOffers,ListOffers,OffersInNeibourghood } from '../../types/offer';
+import { Comments } from '../../types/offer';
 
 type AppProps = {
   cardsCount: number;
-  offers: Offers;
+  fullOffers: FullOffers;
+  listOffers: ListOffers;
+  comments: Comments;
+  offersInNeibourghood: OffersInNeibourghood;
 }
 
-function App({ cardsCount, offers }: AppProps): JSX.Element {
+function App({ cardsCount, fullOffers, listOffers, comments, offersInNeibourghood }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -24,7 +28,8 @@ function App({ cardsCount, offers }: AppProps): JSX.Element {
           element={
             <MainPage
               cardsCount={cardsCount}
-              offers={offers}
+              fullOffers = {fullOffers}
+              listOffers = {listOffers}
             />
           }
         />
@@ -37,7 +42,9 @@ function App({ cardsCount, offers }: AppProps): JSX.Element {
             path=":id"
             element={
               <OfferPage
-                offers={offers}
+                fullOffers={fullOffers}
+                comments = {comments}
+                offersInNeibourghood = {offersInNeibourghood}
               />
             }
           />
@@ -47,7 +54,7 @@ function App({ cardsCount, offers }: AppProps): JSX.Element {
           element={
             <PrivateRoute authorizationStatus={AuthState.Auth}>
               <FavouritesPage
-                offers={offers}
+                fullOffers={fullOffers}
               />
             </PrivateRoute>
           }

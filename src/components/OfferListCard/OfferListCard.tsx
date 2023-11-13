@@ -1,17 +1,18 @@
-import { Offers} from '../../types/offer';
+import { ListOffers} from '../../types/offer';
 import { Link } from 'react-router-dom';
 
 type OfferListCardProps = {
-  offers: Offers;
+  listOffers: ListOffers;
+  className: string;
   onMouseMove: (id: string)=> void;
 };
 
-function OfferListCard({ offers,onMouseMove }: OfferListCardProps): JSX.Element {
+function OfferListCard({ listOffers,className,onMouseMove }: OfferListCardProps): JSX.Element {
 
   return (
     <>
-      {offers.map((item) => (
-        <article key = {item.id} className="cities__card place-card"
+      {listOffers.map((item) => (
+        <article key = {item.id} className= {`${className} place-card`}
           onMouseEnter = {(evt) => {
             evt.preventDefault();
             onMouseMove(item.id);

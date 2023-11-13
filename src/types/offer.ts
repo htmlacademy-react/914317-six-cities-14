@@ -1,4 +1,4 @@
-export type CurrentOffer = {
+export type FullOffer = {
   id: string;
   title: string;
   type: string;
@@ -31,7 +31,33 @@ export type CurrentOffer = {
   maxAdults: number;
 }
 
-export type Offers = CurrentOffer[];
+export type FullOffers = FullOffer[];
+
+export type ListOffer = {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  city: {
+    name: string;
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+  };
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage: string;
+}
+
+export type ListOffers = ListOffer[];
 
 export type City = {
   location: {
@@ -41,5 +67,45 @@ export type City = {
   };
   name: string;
 };
+
+export type Comment = {
+  id: string;
+  date: string;
+  user: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  comment: string;
+  rating: number;
+}
+
+export type OfferInNeibourghood = {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  city: {
+    name: string;
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+  };
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  previewImage: string;
+}
+
+export type Comments = Comment[];
+
+export type OffersInNeibourghood = OfferInNeibourghood[];
 
 export type HoverCard = readonly boolean[];

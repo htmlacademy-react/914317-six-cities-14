@@ -1,12 +1,13 @@
 import Main from '../../components/Main/Main';
-import { Offers } from '../../types/offer';
+import { FullOffers,ListOffers } from '../../types/offer';
 
 type MainProps = {
   cardsCount: number;
-  offers: Offers;
+  fullOffers: FullOffers;
+  listOffers: ListOffers;
 }
 
-function MainPage({ cardsCount, offers }: MainProps): JSX.Element {
+function MainPage({ cardsCount, fullOffers, listOffers }: MainProps): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
@@ -40,7 +41,8 @@ function MainPage({ cardsCount, offers }: MainProps): JSX.Element {
       </header>
       <Main
         cardsCount={cardsCount}
-        offers={offers}
+        fullOffers = {fullOffers}
+        listOffers = {listOffers}
       />
     </div>
   );
