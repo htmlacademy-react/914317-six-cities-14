@@ -59,14 +59,7 @@ export type ListOffer = {
 
 export type ListOffers = ListOffer[];
 
-export type City = {
-  location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  };
-  name: string;
-};
+export type City = string;
 
 export type Comment = {
   id: string;

@@ -1,13 +1,16 @@
 import Main from '../../components/Main/Main';
-import { FullOffers,ListOffers } from '../../types/offer';
+import { useAppDispatch } from '../../components/Hooks/index';
+import { loadOffers, changeCity } from '../../store/action';
 
 type MainProps = {
   cardsCount: number;
-  fullOffers: FullOffers;
-  listOffers: ListOffers;
 }
 
-function MainPage({ cardsCount, fullOffers, listOffers }: MainProps): JSX.Element {
+function MainPage({ cardsCount }: MainProps): JSX.Element {
+
+  const dispatch = useAppDispatch();
+  dispatch(loadOffers());
+  dispatch(changeCity('Paris'));
 
   return (
     <div className="page page--gray page--main">
@@ -41,8 +44,6 @@ function MainPage({ cardsCount, fullOffers, listOffers }: MainProps): JSX.Elemen
       </header>
       <Main
         cardsCount={cardsCount}
-        fullOffers = {fullOffers}
-        listOffers = {listOffers}
       />
     </div>
   );

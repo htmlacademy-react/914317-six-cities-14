@@ -8,18 +8,17 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthState, AppRoute } from '../../const';
-import { FullOffers,ListOffers,OffersInNeibourghood } from '../../types/offer';
+import { FullOffers,OffersInNeibourghood } from '../../types/offer';
 import { Comments } from '../../types/offer';
 
 type AppProps = {
   cardsCount: number;
   fullOffers: FullOffers;
-  listOffers: ListOffers;
   comments: Comments;
   offersInNeibourghood: OffersInNeibourghood;
 }
 
-function App({ cardsCount, fullOffers, listOffers, comments, offersInNeibourghood }: AppProps): JSX.Element {
+function App({ cardsCount, fullOffers, comments, offersInNeibourghood }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -28,8 +27,6 @@ function App({ cardsCount, fullOffers, listOffers, comments, offersInNeibourghoo
           element={
             <MainPage
               cardsCount={cardsCount}
-              fullOffers = {fullOffers}
-              listOffers = {listOffers}
             />
           }
         />

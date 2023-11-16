@@ -294,4 +294,8 @@ export const offersInNeibourghood: OffersInNeibourghood = [
   }
 ];
 
+export const city = {
+  name: 'Amsterdam',
+};
+
 
