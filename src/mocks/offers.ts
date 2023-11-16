@@ -153,7 +153,7 @@ export const listOffers: ListOffers = [
     'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'apartment',
-    'price': 120,
+    'price': 30,
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -169,7 +169,7 @@ export const listOffers: ListOffers = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 4,
+    'rating': 5,
     'previewImage': 'https://url-to-image/image.png'
   },
   {
@@ -199,7 +199,7 @@ export const listOffers: ListOffers = [
     'id': '4af6f711-c28d-4121-82cd-e0b462a27f00',
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'apartment',
-    'price': 120,
+    'price': 100,
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -215,14 +215,14 @@ export const listOffers: ListOffers = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 4,
+    'rating': 3,
     'previewImage': 'https://url-to-image/image.png'
   },
   {
     'id': '3af6f711-c28d-4121-82cd-e0b462a27f00',
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'apartment',
-    'price': 120,
+    'price': 90,
     'city': {
       'name': 'Amsterdam',
       'location': {
@@ -238,7 +238,7 @@ export const listOffers: ListOffers = [
     },
     'isFavorite': false,
     'isPremium': false,
-    'rating': 4,
+    'rating': 1,
     'previewImage': 'https://url-to-image/image.png'
   }
 ];
