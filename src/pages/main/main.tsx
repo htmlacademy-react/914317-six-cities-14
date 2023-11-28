@@ -1,6 +1,4 @@
 import Main from '../../components/Main/Main';
-import { useAppDispatch } from '../../components/Hooks/index';
-import { loadOffers, changeCity } from '../../store/action';
 
 type MainProps = {
   cardsCount: number;
@@ -8,9 +6,6 @@ type MainProps = {
 
 function MainPage({ cardsCount }: MainProps): JSX.Element {
 
-  const dispatch = useAppDispatch();
-  dispatch(loadOffers());
-  dispatch(changeCity('Paris'));
 
   return (
     <div className="page page--gray page--main">

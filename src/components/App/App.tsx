@@ -3,13 +3,15 @@ import LoginPage from '../../pages/login/login';
 import OfferPage from '../../pages/offer/offer';
 import FavouritesPage from '../../pages/favourites/favourites';
 import ErrorPage from '../../pages/error/error';
+import LoadingScreen from '../loadnigScreen/loadningScreen';
 
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthState, AppRoute } from '../../const';
-import { FullOffers,OffersInNeibourghood } from '../../types/offer';
+import { FullOffers, OffersInNeibourghood } from '../../types/offer';
 import { Comments } from '../../types/offer';
+import { useAppSelector } from '../Hooks';
 
 type AppProps = {
   cardsCount: number;
@@ -19,6 +21,13 @@ type AppProps = {
 }
 
 function App({ cardsCount, fullOffers, comments, offersInNeibourghood }: AppProps): JSX.Element {
+
+  const isDataloading = useAppSelector((state) => state.isDataLoading);
+
+  if (isDataloading === true) {
+    return (<LoadingScreen />);
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -40,8 +49,8 @@ function App({ cardsCount, fullOffers, comments, offersInNeibourghood }: AppProp
             element={
               <OfferPage
                 fullOffers={fullOffers}
-                comments = {comments}
-                offersInNeibourghood = {offersInNeibourghood}
+                comments={comments}
+                offersInNeibourghood={offersInNeibourghood}
               />
             }
           />
