@@ -61,6 +61,15 @@ export type ListOffers = ListOffer[];
 
 export type City = string;
 
+export type CityMap = {
+  name: string;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+};
+
 export type Comment = {
   id: string;
   date: string;
