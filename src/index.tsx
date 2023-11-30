@@ -6,9 +6,10 @@ import { store } from '../src/store/index';
 import { OfferRent } from '../src/const';
 import { fullOffers, offersInNeibourghood } from '../src/mocks/offers';
 import { comments } from '../src/mocks/offers';
-import { fetchListOffersAction } from './store/api-action';
+import { checkAuthAction, fetchListOffersAction } from './store/api-action';
 
 store.dispatch(fetchListOffersAction());
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
