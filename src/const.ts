@@ -1,6 +1,3 @@
-export const OfferRent = {
-  Count : 5
-};
 
 export enum AppRoute{
   Main = '/',
@@ -18,5 +15,7 @@ export enum AuthState{
 export enum APIRoute {
   Offers = '/offers',
   Login = '/login',
+  Favorite = '/favorite',
   Logout = '/logout',
+  Comments = '/comments'
 }

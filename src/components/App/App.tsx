@@ -3,24 +3,15 @@ import LoginPage from '../../pages/login/login';
 import OfferPage from '../../pages/offer/offer';
 import FavouritesPage from '../../pages/favourites/favourites';
 import ErrorPage from '../../pages/error/error';
-import LoadingScreen from '../loadnigScreen/loadningScreen';
+import LoadingScreen from '../loadnigScreen/loadning-screen';
 
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import PrivateRoute from '../PrivateRoute/private-route';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthState, AppRoute } from '../../const';
-import { FullOffers, OffersInNeibourghood } from '../../types/offer';
-import { Comments } from '../../types/offer';
 import { useAppSelector } from '../Hooks';
 
-type AppProps = {
-  cardsCount: number;
-  fullOffers: FullOffers;
-  comments: Comments;
-  offersInNeibourghood: OffersInNeibourghood;
-}
-
-function App({ cardsCount, fullOffers, comments, offersInNeibourghood }: AppProps): JSX.Element {
+function App(): JSX.Element {
 
   const isDataloading = useAppSelector((state) => state.isDataLoading);
 
@@ -34,9 +25,7 @@ function App({ cardsCount, fullOffers, comments, offersInNeibourghood }: AppProp
         <Route
           path={AppRoute.Main}
           element={
-            <MainPage
-              cardsCount={cardsCount}
-            />
+            <MainPage/>
           }
         />
         <Route
@@ -47,11 +36,7 @@ function App({ cardsCount, fullOffers, comments, offersInNeibourghood }: AppProp
           <Route
             path=":id"
             element={
-              <OfferPage
-                fullOffers={fullOffers}
-                comments={comments}
-                offersInNeibourghood={offersInNeibourghood}
-              />
+              <OfferPage/>
             }
           />
         </Route>
@@ -59,9 +44,7 @@ function App({ cardsCount, fullOffers, comments, offersInNeibourghood }: AppProp
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthState.Auth}>
-              <FavouritesPage
-                fullOffers={fullOffers}
-              />
+              <FavouritesPage/>
             </PrivateRoute>
           }
         />

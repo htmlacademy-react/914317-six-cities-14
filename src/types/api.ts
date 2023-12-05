@@ -10,3 +10,7 @@ export type UserData = {
   email: string;
   token: string;
 };
+
+export type OfferId = {
+ id: string | undefined;
+};

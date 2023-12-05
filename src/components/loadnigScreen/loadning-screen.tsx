@@ -1,4 +1,4 @@
-import './LoadingScreen.css';
+import './loading-screen.css';
 
 function LoadingScreen():JSX.Element {
   return (

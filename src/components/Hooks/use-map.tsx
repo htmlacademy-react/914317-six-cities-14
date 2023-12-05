@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef, MutableRefObject } from 'react';
-import { CityMap } from '../../types/offer';
+import { City } from '../../types/offer';
 import { Map, TileLayer } from 'leaflet';
 
 type useMapProps = {
   mapRef: MutableRefObject<HTMLElement | null>;
-  city: CityMap;
+  city: City;
 }
 
 function useMap({ mapRef, city }: useMapProps): Map | null {

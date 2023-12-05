@@ -1,21 +1,21 @@
-import { FullOffers } from '../../types/offer';
-import FavouritesList from '../../components/FavouritesList/FavouritesList';
-import PageHeader from '../../components/PageHeader/pageHeader';
-type FavouritesProps = {
-  fullOffers: FullOffers;
-}
+import FavouritesList from '../../components/FavouritesList/favourites-list';
+import { useAppSelector } from '../../components/Hooks';
+import PageHeader from '../../components/PageHeader/page-header';
 
-function FavouritesPage({ fullOffers }: FavouritesProps): JSX.Element {
+function FavouritesPage(): JSX.Element {
+
+  const favouriteOffers = useAppSelector((state) => state.favouriteOffers);
+
   return (
     <div className="page">
-      <PageHeader/>
+      <PageHeader />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               <FavouritesList
-                fullOffers={fullOffers}
+                favouriteOffers={favouriteOffers}
               />
             </ul>
           </section>

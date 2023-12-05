@@ -1,20 +1,21 @@
-import OfferList from '../../components/OfferList/OfferList';
-import MapProxy from '../../components/Map/MapProxy';
+import OfferList from '../../components/OfferList/offer-list';
+import MapProxy from '../../components/Map/map-proxy';
 import { useState } from 'react';
-import Locations from '../../components/Locations/Locations';
-import SortVariants from '../../components/SortVariants/SortVariants';
+import Locations from '../../components/Locations/locations';
+import SortVariants from '../../components/SortVariants/sort-variants';
 import { useAppDispatch, useAppSelector } from '../Hooks/index';
 import { changeCity, changeSort } from '../../store/action';
+import { filterOffersByCity } from '../../utils/utils';
 
-type MainProps = {
-  cardsCount: number;
-}
 
-function Main({ cardsCount }: MainProps): JSX.Element {
+function Main(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const filtredOffers = useAppSelector((state) => state.filtredOffers);
+  const sortedOffers = useAppSelector((state) => filterOffersByCity(state.city.name,state.filtredOffers));
+  const currentCity = useAppSelector((state) => state.city);
+
+  const currentCityname = currentCity.name;
 
   const [hoveredOfferId, setHoveredOfferId] = useState('');
   const [isHovered, setHoveredSort] = useState(false);
@@ -70,22 +71,21 @@ function Main({ cardsCount }: MainProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{`${sortedOffers.length} places to stay in ${currentCityname}`}</b>
               <SortVariants
                 onItemHover={handleSortHover}
                 onClick={handleSortClick}
                 isHovered = {isHovered}
               />
               <OfferList
-                cardsCount={cardsCount}
-                listOffers={filtredOffers}
+                listOffers={sortedOffers}
                 isNeibourgh={false}
                 onItemHover={handleItemHover}
               />
             </section>
             <div className="cities__right-section">
               <MapProxy
-                listOffers={filtredOffers}
+                listOffers={sortedOffers}
                 hoveredOfferId={hoveredOfferId}
                 className='cities__map'
               />
@@ -95,7 +95,7 @@ function Main({ cardsCount }: MainProps): JSX.Element {
       }
     }
   }
-  const className = getClassByIsOffersEmpty(filtredOffers.length === 0);
+  const className = getClassByIsOffersEmpty(sortedOffers.length === 0);
 
   return (
     <main className={`page__main page__main--index ${className.divClass}`}>
@@ -110,7 +110,7 @@ function Main({ cardsCount }: MainProps): JSX.Element {
         </section>
       </div>
       <div className="cities">
-        {getMarkupByIsOffersEmpty(filtredOffers.length === 0)}
+        {getMarkupByIsOffersEmpty(sortedOffers.length === 0)}
       </div>
     </main>
   );

@@ -1,8 +1,7 @@
 import { ListOffers } from '../../types/offer';
-import OfferListCard from '../OfferListCard/OfferListCard';
+import OfferListCard from '../OfferList/offer-list-card';
 
 type AllOffersProps = {
-  cardsCount?: number;
   listOffers: ListOffers;
   isNeibourgh: boolean;
   onItemHover: (id: string) => void;
@@ -27,14 +26,13 @@ const getClassByIsNeibourgh = (isNeibourgh: boolean) => {
 
 };
 
-function OfferList({ cardsCount, listOffers, isNeibourgh, onItemHover }: AllOffersProps): JSX.Element {
+function OfferList({ listOffers, isNeibourgh, onItemHover }: AllOffersProps): JSX.Element {
 
 
   const className = getClassByIsNeibourgh(isNeibourgh);
 
   return (
     <div className={`${className.divClass} places__list ${className.tabsContent}`} >
-      {cardsCount}
       <OfferListCard
         listOffers={listOffers}
         className = {className.articleClass}

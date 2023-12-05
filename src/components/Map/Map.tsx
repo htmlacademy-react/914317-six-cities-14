@@ -1,10 +1,11 @@
-import useMap from '../Hooks/useMap';
+import useMap from '../Hooks/use-map';
 import { useRef, useEffect } from 'react';
 import { ListOffers } from '../../types/offer';
-import { URL_MARKER_DEFAULT,URL_MARKER_CURRENT } from '../const';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../const';
 
 import 'leaflet/dist/leaflet.css';
 import { Icon, Marker, layerGroup } from 'leaflet';
+import { useAppSelector } from '../Hooks';
 
 type MapProps = {
   listOffers: ListOffers;
@@ -28,8 +29,7 @@ function Map({ listOffers, hoveredOfferId, className }: MapProps): JSX.Element {
 
   const selectedPoint = listOffers.find((point) => point.id === hoveredOfferId);
 
-  const firstOffer = listOffers.slice(0, 1)[0];
-  const city = firstOffer.city;
+  const city = useAppSelector((state) => state.city);
 
   const mapRef = useRef(null);
   const map = useMap({ mapRef, city });
@@ -37,7 +37,7 @@ function Map({ listOffers, hoveredOfferId, className }: MapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      listOffers.forEach(({id,location}) => {
+      listOffers.forEach(({ id, location }) => {
         const marker = new Marker({
           lat: location.latitude,
           lng: location.longitude,
@@ -57,7 +57,7 @@ function Map({ listOffers, hoveredOfferId, className }: MapProps): JSX.Element {
   }, [map, listOffers, selectedPoint]);
 
   return (
-    <section className={`${className}`} ref = {mapRef}></section>
+    <section className={`${className}`} ref={mapRef}></section>
   );
 
 }

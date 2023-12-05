@@ -29,7 +29,7 @@ export type FullOffer = {
   };
   images: [string];
   maxAdults: number;
-}
+};
 
 export type FullOffers = FullOffer[];
 
@@ -59,9 +59,9 @@ export type ListOffer = {
 
 export type ListOffers = ListOffer[];
 
-export type City = string;
+export type Cities = City[]
 
-export type CityMap = {
+export type City = {
   name: string;
   location: {
     latitude: number;
@@ -81,6 +81,24 @@ export type Comment = {
   comment: string;
   rating: number;
 }
+
+export type User = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+}
+
+export type userComment = {
+  offerId: string | undefined;
+  comment: string;
+  rating: number;
+}
+
+export type offerFavorite = {
+  offerId: string | undefined;
+  status: number;
+}
+
 
 export type OfferInNeibourghood = {
   id: string;

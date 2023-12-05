@@ -1,7 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
-import { City } from '../types/offer';
+import { Comments, FullOffer, OffersInNeibourghood} from '../types/offer';
 import {ListOffers} from '../types/offer';
 import { AuthState } from '../const';
+import { FavouriteOffers } from '../types/favourite-offer';
+
 
 export const loadOffers = createAction('offers/loadOffers',(listOffers : ListOffers) => ({
   payload: listOffers
@@ -19,6 +21,34 @@ export const checkAuthorizationStatus = createAction('user/checkAuthorization',(
   payload: authorizationStatus
 }));
 
-export const changeCity = createAction('offers/changeCity', (city : City) => ({
+export const changeCity = createAction('offers/changeCity', (city : string) => ({
   payload: city
+}));
+
+export const changeFullOffer = createAction('offers/changeFullOffer', (currentOffer : FullOffer) => ({
+  payload: currentOffer
+}));
+
+export const changeOffers = createAction('offers/changeOffers', (listOffers : ListOffers) => ({
+  payload: listOffers
+}));
+
+export const loadOfferData = createAction('offers/loadCurrentOffer', (offer : FullOffer) => ({
+  payload: offer
+}));
+
+export const loadFavouriteOffers = createAction('offers/loadFavouriteOffers', (favouriteOffers : FavouriteOffers) => ({
+  payload: favouriteOffers
+}));
+
+export const loadUserEmail = createAction('offers/loadUserEmail', (email : string) => ({
+  payload: email
+}));
+
+export const loadOfferComments = createAction('offers/loadCurrentOfferComments', (comments : Comments) => ({
+  payload: comments
+}));
+
+export const loadOfferNeibourghood = createAction('offers/loadCurrentOfferNeibourghood', (offersInNeibourghood : OffersInNeibourghood) => ({
+  payload: offersInNeibourghood
 }));
