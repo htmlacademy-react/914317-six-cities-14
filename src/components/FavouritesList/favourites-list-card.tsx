@@ -1,22 +1,30 @@
-import { FullOffers } from '../../types/offer';
 import { Link } from 'react-router-dom';
+import { FavouriteOffers } from '../../types/favourite-offer';
 
 type FavouritesListCardProps = {
-  fullOffers: FullOffers;
+  favouriteOffers: FavouriteOffers;
+  city: string;
 }
 
-function FavouritesListCard({ fullOffers }: FavouritesListCardProps): JSX.Element {
+function FavouritesListCard({favouriteOffers, city}:FavouritesListCardProps): JSX.Element {
+
+  function capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+
+  const offersForSection = favouriteOffers.filter((item) => item.city.name === city);
 
   return (
     <>
-      {fullOffers.map((item) => (
+      {offersForSection.map((item) => (
         <article key={item.id} className="favorites__card place-card">
           <div className="place-card__mark">
             <span>Premium</span>
           </div>
           <div className="favorites__image-wrapper place-card__image-wrapper">
             <a href="#">
-              <img className="place-card__image" src="img/apartment-small-03.jpg" width="150" height="110" alt="Place image" />
+              <img className="place-card__image" src={`${item.previewImage}`} width="150" height="110" alt="Place image" />
             </a>
           </div>
           <div className="favorites__card-info place-card__info">
@@ -41,7 +49,7 @@ function FavouritesListCard({ fullOffers }: FavouritesListCardProps): JSX.Elemen
             <h2 className="place-card__name">
               <Link to ={`/offer/${item.id}`}>{item.title}</Link>
             </h2>
-            <p className="place-card__type">{item.type}</p>
+            <p className="place-card__type">{`${capitalizeFirstLetter(item.type)}`}</p>
           </div>
         </article>
       ))}

@@ -17,7 +17,7 @@ function getClassByCurrentLocation(stateLocation: string, currentItem : string) 
 function Locations({onClick}:LocationProps): JSX.Element {
 
   const currentCity = useAppSelector((state) => state.city);
-  const currentCityName = currentCity;
+  const currentCityName = currentCity.name;
 
   return (
     <>

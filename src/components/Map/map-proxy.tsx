@@ -1,4 +1,4 @@
-import Map from './Map';
+import Map from './map';
 import { ListOffers, OffersInNeibourghood } from '../../types/offer';
 
 type MapProxyProps = {

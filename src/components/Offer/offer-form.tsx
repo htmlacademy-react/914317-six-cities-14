@@ -1,24 +1,64 @@
-import {useState, ChangeEvent} from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../Hooks';
+import { postCommentAction } from '../../store/api-action';
+import { AuthState } from '../../const';
 
-function OfferForm(): JSX.Element {
+type offerFormProps = {
+  currentId: string | undefined;
+}
+
+function OfferForm({ currentId }: offerFormProps): JSX.Element {
 
   const [formData, setFormData] = useState({
-    rating: 0,
-    review: ''
+    offerId: currentId,
+    comment: '',
+    rating: 0
   });
+
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  function getMarkupByAuthorizationStatus(authStatus: AuthState) {
+    switch (authStatus) {
+      case (AuthState.Auth):
+        return (
+          <button
+            className="reviews__submit form__submit button"
+            type="submit"
+          >
+            Submit
+          </button>
+        );
+      default: return (
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled
+        >
+          Submit
+        </button>
+      );
+    }
+  }
 
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const rating = Number(evt.target.value);
-    setFormData((prevState) => ({...prevState, rating}));
+    setFormData((prevState) => ({ ...prevState, rating }));
   };
 
   const handleTextAreaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    const review = evt.target.value;
-    setFormData((prevState) => ({...prevState, review}));
+    const comment = evt.target.value;
+    setFormData((prevState) => ({ ...prevState, comment }));
   };
 
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    dispatch(postCommentAction(formData));
+  };
+
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -29,7 +69,7 @@ function OfferForm(): JSX.Element {
           defaultValue={5}
           id="5-stars"
           type="radio"
-          onChange = {handleFieldChange}
+          onChange={handleFieldChange}
         />
         <label
           htmlFor="5-stars"
@@ -46,7 +86,7 @@ function OfferForm(): JSX.Element {
           defaultValue={4}
           id="4-stars"
           type="radio"
-          onChange = {handleFieldChange}
+          onChange={handleFieldChange}
         />
         <label
           htmlFor="4-stars"
@@ -63,7 +103,7 @@ function OfferForm(): JSX.Element {
           defaultValue={3}
           id="3-stars"
           type="radio"
-          onChange = {handleFieldChange}
+          onChange={handleFieldChange}
         />
         <label
           htmlFor="3-stars"
@@ -80,7 +120,7 @@ function OfferForm(): JSX.Element {
           defaultValue={2}
           id="2-stars"
           type="radio"
-          onChange = {handleFieldChange}
+          onChange={handleFieldChange}
         />
         <label
           htmlFor="2-stars"
@@ -97,7 +137,7 @@ function OfferForm(): JSX.Element {
           defaultValue={1}
           id="1-star"
           type="radio"
-          onChange = {handleFieldChange}
+          onChange={handleFieldChange}
         />
         <label
           htmlFor="1-star"
@@ -114,8 +154,8 @@ function OfferForm(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={formData.review}
-        onChange = {handleTextAreaChange}
+        value={formData.comment}
+        onChange={handleTextAreaChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -124,13 +164,7 @@ function OfferForm(): JSX.Element {
           your stay with at least{''}
           <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button
-          className="reviews__submit form__submit button"
-          type="submit"
-          disabled
-        >
-          Submit
-        </button>
+        {getMarkupByAuthorizationStatus(authorizationStatus)}
       </div>
     </form>
   );

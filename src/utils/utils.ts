@@ -1,24 +1,31 @@
-import { ListOffers, City } from '../types/offer';
+import { ListOffers} from '../types/offer';
+import { locations } from '../mocks/locations';
 
-function filterOffersByCity(city: City, offers: ListOffers) {
+function filterOffersByCity(city: string, offers: ListOffers) {
   return offers.filter((item) => item.city.name === city);
 }
 
-function sortOffers(id: number, offers: ListOffers, startStateFiltredOffers: ListOffers) {
+function sortOffers(id: number, offers: ListOffers) {
+
+  const offersToSort = offers.slice();
 
   switch (id) {
     case 1:
-      return startStateFiltredOffers;
+      return offersToSort;
     case 2:
-      return offers.sort((firstItem, secondItem) => firstItem.price - secondItem.price);
+      return offersToSort.sort((firstItem, secondItem) => firstItem.price - secondItem.price);
     case 3:
-      return offers.sort((firstItem, secondItem) => secondItem.price - firstItem.price);
+      return offersToSort.sort((firstItem, secondItem) => secondItem.price - firstItem.price);
     case 4:
-      return offers.sort((firstItem, secondItem) => secondItem.price - firstItem.price);
-    default: return offers;
+      return offersToSort.sort((firstItem, secondItem) => secondItem.rating - firstItem.rating);
+    default: return offersToSort;
   }
 
 }
 
+function findCity(city: string){
+  return locations.filter((item) => item.name === city)[0];
+}
 
-export { filterOffersByCity, sortOffers };
+
+export { filterOffersByCity, sortOffers, findCity };

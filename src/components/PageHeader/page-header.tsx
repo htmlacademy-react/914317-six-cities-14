@@ -1,4 +1,4 @@
-import PageHeaderNavigation from '../PageHeaderNavigation/pageHeaderNavigation';
+import PageHeaderNavigation from './page-header-navigation';
 import { Link } from 'react-router-dom';
 
 function PageHeader(): JSX.Element {
