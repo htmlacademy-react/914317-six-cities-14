@@ -1,4 +1,5 @@
-import { sortVariants } from '../../mocks/sort';
+import { sortVariants } from '../../const';
+import { useAppSelector } from '../hooks';
 
 type SortVariantsProps = {
   onItemHover: (isHover: boolean) => void;
@@ -7,6 +8,13 @@ type SortVariantsProps = {
 }
 
 function SortVariants({ onItemHover, onClick, isHovered }: SortVariantsProps): JSX.Element {
+
+  const currentSort = useAppSelector((state)=> state.currentSort);
+
+  function getSortName(){
+    const sortName = sortVariants.filter((item)=> item.id === currentSort);
+    return sortName[0].name;
+  }
 
   function getClassByIsHovered(isHover: boolean) {
     switch (isHover) {
@@ -30,7 +38,7 @@ function SortVariants({ onItemHover, onClick, isHovered }: SortVariantsProps): J
     >
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}>
-        Popular
+        {`${getSortName()}`}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>

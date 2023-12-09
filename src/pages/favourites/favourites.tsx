@@ -1,24 +1,58 @@
-import FavouritesList from '../../components/FavouritesList/favourites-list';
-import { useAppSelector } from '../../components/Hooks';
-import PageHeader from '../../components/PageHeader/page-header';
+import FavouritesList from '../../components/favourites-list/favourites-list';
+import FavouritesListEmpty from '../../components/favourites-list/favourites-list-empty';
+import { useAppSelector } from '../../components/hooks';
+import PageHeader from '../../components/page-header/page-header';
 
 function FavouritesPage(): JSX.Element {
 
   const favouriteOffers = useAppSelector((state) => state.favouriteOffers);
 
+  function getMarkupContainerIsFavouritesExist() {
+    if (favouriteOffers.length > 0) {
+      return (
+        <FavouritesList
+          favouriteOffers={favouriteOffers}
+        />
+      );
+    } else {
+      return (
+        <FavouritesListEmpty />
+      );
+    }
+  }
+
+  function getMarkupPageIsFavouritesExist() {
+    if (favouriteOffers.length === 0) {
+      return (
+        'page--favorites-empty'
+      );
+    } else {
+      return (
+        ''
+      );
+    }
+  }
+
+
+  function getMarkupMainIsFavouritesExist() {
+    if (favouriteOffers.length === 0) {
+      return (
+        'page__main--favorites-empty'
+      );
+    } else {
+      return (
+        ''
+      );
+    }
+  }
+
+
   return (
-    <div className="page">
+    <div className={`page ${getMarkupPageIsFavouritesExist()}`}>
       <PageHeader />
-      <main className="page__main page__main--favorites">
+      <main className={`page__main page__main--favorites ${getMarkupMainIsFavouritesExist()}`}>
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <FavouritesList
-                favouriteOffers={favouriteOffers}
-              />
-            </ul>
-          </section>
+          {getMarkupContainerIsFavouritesExist()}
         </div>
       </main>
       <footer className="footer container">

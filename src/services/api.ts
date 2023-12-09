@@ -1,13 +1,13 @@
 import axios, {AxiosInstance, InternalAxiosRequestConfig} from 'axios';
 import { getToken } from './token';
 
-const baseURL = 'https://14.design.pages.academy/six-cities';
-const timeout = 5000;
+const BASE_URL = 'https://14.design.pages.academy/six-cities';
+const TIMEOUT = 5000;
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
-    baseURL: baseURL,
-    timeout: timeout,
+    baseURL: BASE_URL,
+    timeout: TIMEOUT,
   });
 
   api.interceptors.request.use(

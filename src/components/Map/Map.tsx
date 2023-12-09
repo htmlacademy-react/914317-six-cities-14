@@ -1,11 +1,11 @@
-import useMap from '../Hooks/use-map';
+import useMap from '../hooks/use-map';
 import { useRef, useEffect } from 'react';
 import { ListOffers } from '../../types/offer';
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../const';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 
 import 'leaflet/dist/leaflet.css';
 import { Icon, Marker, layerGroup } from 'leaflet';
-import { useAppSelector } from '../Hooks';
+import { useAppSelector } from '../hooks';
 
 type MapProps = {
   listOffers: ListOffers;

@@ -1,9 +1,9 @@
-import OfferList from '../../components/OfferList/offer-list';
-import MapProxy from '../../components/Map/map-proxy';
+import OfferList from '../../components/offer-list/offer-list';
+import MapProxy from '../../components/map/map-proxy';
 import { useState } from 'react';
-import Locations from '../../components/Locations/locations';
-import SortVariants from '../../components/SortVariants/sort-variants';
-import { useAppDispatch, useAppSelector } from '../Hooks/index';
+import Locations from '../../components/locations/locations';
+import SortVariants from '../../components/sort-variants/sort-variants';
+import { useAppDispatch, useAppSelector } from '../hooks/index';
 import { changeCity, changeSort } from '../../store/action';
 import { filterOffersByCity } from '../../utils/utils';
 
@@ -21,19 +21,19 @@ function Main(): JSX.Element {
   const [isHovered, setHoveredSort] = useState(false);
 
 
-  const handleSortHover = (isHover: boolean) => {
+  const onHandleSortHover = (isHover: boolean) => {
     setHoveredSort(isHover);
   };
 
-  const handleItemHover = (currentId: string) => {
+  const onHandleItemHover = (currentId: string) => {
     setHoveredOfferId(currentId);
   };
 
-  const handleLocationClick = (currentLocation: string) => {
+  const onHandleLocationClick = (currentLocation: string) => {
     dispatch(changeCity(currentLocation));
   };
 
-  const handleSortClick = (currentId: number) => {
+  const onHandleSortClick = (currentId: number) => {
     dispatch(changeSort(currentId));
   };
 
@@ -48,6 +48,17 @@ function Main(): JSX.Element {
         return {
           divClass: 'page__main--index-empty',
         };
+    }
+  }
+
+  function getPlaceByOffers(placesCount: number) {
+    switch (placesCount > 1) {
+      case false:
+        return (
+          'place'
+        );
+      case true:
+        return ('places');
     }
   }
 
@@ -71,16 +82,16 @@ function Main(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{`${sortedOffers.length} places to stay in ${currentCityname}`}</b>
+              <b className="places__found">{`${sortedOffers.length} ${getPlaceByOffers(sortedOffers.length)} to stay in ${currentCityname}`}</b>
               <SortVariants
-                onItemHover={handleSortHover}
-                onClick={handleSortClick}
+                onItemHover={onHandleSortHover}
+                onClick={onHandleSortClick}
                 isHovered = {isHovered}
               />
               <OfferList
                 listOffers={sortedOffers}
                 isNeibourgh={false}
-                onItemHover={handleItemHover}
+                onItemHover={onHandleItemHover}
               />
             </section>
             <div className="cities__right-section">
@@ -104,7 +115,7 @@ function Main(): JSX.Element {
         <section className="locations container">
           <ul className="locations__list tabs__list">
             <Locations
-              onClick={handleLocationClick}
+              onClick={onHandleLocationClick}
             />
           </ul>
         </section>

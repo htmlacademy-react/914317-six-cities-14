@@ -1,5 +1,5 @@
-import Main from '../../components/Main/main';
-import PageHeader from '../../components/PageHeader/page-header';
+import Main from '../../components/main/main';
+import PageHeader from '../../components/page-header/page-header';
 
 function MainPage(): JSX.Element {
 

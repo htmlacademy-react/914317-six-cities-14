@@ -1,5 +1,5 @@
 import { OffersInNeibourghood } from '../../types/offer';
-import OfferList from '../OfferList/offer-list';
+import OfferList from '../offer-list/offer-list';
 
 type OffersNearProps = {
   offersInNeibourghood: OffersInNeibourghood;

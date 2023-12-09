@@ -1,5 +1,5 @@
 import { ListOffers} from '../types/offer';
-import { locations } from '../mocks/locations';
+import { locations } from '../const';
 
 function filterOffersByCity(city: string, offers: ListOffers) {
   return offers.filter((item) => item.city.name === city);

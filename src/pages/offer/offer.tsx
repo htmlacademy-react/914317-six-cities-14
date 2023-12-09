@@ -1,5 +1,5 @@
-import Offer from '../../components/Offer/offer';
-import PageHeader from '../../components/PageHeader/page-header';
+import Offer from '../../components/offer/offer';
+import PageHeader from '../../components/page-header/page-header';
 
 function OfferPage(): JSX.Element {
 
