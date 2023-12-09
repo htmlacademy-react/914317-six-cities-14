@@ -9,7 +9,6 @@ type FavouriteButtonListProps = {
   offerId: string;
 }
 
-
 function FavouriteButtonList({ isFavorite, offerId }: FavouriteButtonListProps): JSX.Element {
 
   const userAuthStatus = useAppSelector((state) => state.authorizationStatus);
