@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { useAppDispatch, useAppSelector } from '../Hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import { postCommentAction } from '../../store/api-action';
 import { AuthState } from '../../const';
 
@@ -17,10 +17,14 @@ function OfferForm({ currentId }: offerFormProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isFormSending = useAppSelector((state) => state.isFormSending);
 
   function getMarkupByAuthorizationStatus(authStatus: AuthState) {
-    switch (authStatus) {
-      case (AuthState.Auth):
+
+    if (authStatus === AuthState.Auth) {
+
+      if (formData.comment.length >= 50 && formData.comment.length <= 300 && isFormSending === false) {
+
         return (
           <button
             className="reviews__submit form__submit button"
@@ -29,7 +33,22 @@ function OfferForm({ currentId }: offerFormProps): JSX.Element {
             Submit
           </button>
         );
-      default: return (
+      } else {
+
+        return (
+          <button
+            className="reviews__submit form__submit button"
+            type="submit"
+            disabled
+          >
+            Submit
+          </button>
+        );
+      }
+
+    } else {
+
+      return (
         <button
           className="reviews__submit form__submit button"
           type="submit"
@@ -39,26 +58,26 @@ function OfferForm({ currentId }: offerFormProps): JSX.Element {
         </button>
       );
     }
+
   }
 
-  const handleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
+  const onHandleFieldChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const rating = Number(evt.target.value);
     setFormData((prevState) => ({ ...prevState, rating }));
   };
 
-  const handleTextAreaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+  const onHandleTextAreaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     const comment = evt.target.value;
     setFormData((prevState) => ({ ...prevState, comment }));
   };
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const onHandleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(postCommentAction(formData));
   };
 
-
   return (
-    <form className="reviews__form form" action="" onSubmit={handleSubmit}>
+    <form className="reviews__form form" onSubmit={onHandleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -69,7 +88,7 @@ function OfferForm({ currentId }: offerFormProps): JSX.Element {
           defaultValue={5}
           id="5-stars"
           type="radio"
-          onChange={handleFieldChange}
+          onChange={onHandleFieldChange}
         />
         <label
           htmlFor="5-stars"
@@ -86,7 +105,7 @@ function OfferForm({ currentId }: offerFormProps): JSX.Element {
           defaultValue={4}
           id="4-stars"
           type="radio"
-          onChange={handleFieldChange}
+          onChange={onHandleFieldChange}
         />
         <label
           htmlFor="4-stars"
@@ -103,7 +122,7 @@ function OfferForm({ currentId }: offerFormProps): JSX.Element {
           defaultValue={3}
           id="3-stars"
           type="radio"
-          onChange={handleFieldChange}
+          onChange={onHandleFieldChange}
         />
         <label
           htmlFor="3-stars"
@@ -120,7 +139,7 @@ function OfferForm({ currentId }: offerFormProps): JSX.Element {
           defaultValue={2}
           id="2-stars"
           type="radio"
-          onChange={handleFieldChange}
+          onChange={onHandleFieldChange}
         />
         <label
           htmlFor="2-stars"
@@ -137,7 +156,7 @@ function OfferForm({ currentId }: offerFormProps): JSX.Element {
           defaultValue={1}
           id="1-star"
           type="radio"
-          onChange={handleFieldChange}
+          onChange={onHandleFieldChange}
         />
         <label
           htmlFor="1-star"
@@ -151,11 +170,13 @@ function OfferForm({ currentId }: offerFormProps): JSX.Element {
       </div>
       <textarea
         className="reviews__textarea form__textarea"
+        minLength={50}
+        maxLength={300}
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={formData.comment}
-        onChange={handleTextAreaChange}
+        onChange={onHandleTextAreaChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

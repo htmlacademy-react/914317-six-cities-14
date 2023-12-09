@@ -3,10 +3,9 @@ import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { Comments, FullOffer, ListOffers, OffersInNeibourghood, offerFavorite, userComment } from '../types/offer';
 import { APIRoute, AuthState } from '../const';
-import { loadOffers, setDataLoadingStatus, changeCity, checkAuthorizationStatus, loadOfferData, loadOfferComments, loadOfferNeibourghood, loadFavouriteOffers, loadUserEmail } from './action';
+import { loadOffers, setDataLoadingStatus, changeCity, checkAuthorizationStatus, loadOfferData, loadOfferComments, loadOfferNeibourghood, loadFavouriteOffers, loadUserEmail, setFormSendingStatus } from './action';
 import { AuthData, OfferId, UserData } from '../types/api';
 import { dropToken, saveToken } from '../services/token';
-import { FavouriteOffers } from '../types/favourite-offer';
 
 export const getFavouriteOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -15,7 +14,7 @@ export const getFavouriteOffersAction = createAsyncThunk<void, undefined, {
 }>(
   'user/getFavouriteOffersData',
   async (_arg, { dispatch, extra: api }) => {
-    const { data } = await api.get<FavouriteOffers>(APIRoute.Favorite);
+    const { data } = await api.get<ListOffers>(APIRoute.Favorite);
     dispatch(loadFavouriteOffers(data));
   }
 );
@@ -85,7 +84,7 @@ export const getOfferDataAction = createAsyncThunk<void, OfferId, {
   extra: AxiosInstance;
 }>(
   'user/getOfferData',
-  async ({id}, { dispatch, extra: api }) => {
+  async ({ id }, { dispatch, extra: api }) => {
     const { data } = await api.get<FullOffer>(`${APIRoute.Offers}/${id}`);
     dispatch(loadOfferData(data));
   }
@@ -97,11 +96,23 @@ export const postCommentAction = createAsyncThunk<void, userComment, {
   extra: AxiosInstance;
 }>(
   'user/postComment',
-  async ({offerId,comment,rating}, { dispatch, extra: api }) => {
-    await api.post(`${APIRoute.Comments}/${offerId}`,{comment,rating});
+  async ({ offerId, comment, rating }, { dispatch, extra: api }) => {
 
-    const { data } = await api.get<Comments>(`${APIRoute.Comments}/${offerId}`);
-    dispatch(loadOfferComments(data));
+    dispatch(setFormSendingStatus(true));
+    try {
+
+      await api.post(`${APIRoute.Comments}/${offerId}`, { comment, rating });
+
+      dispatch(setFormSendingStatus(false));
+
+      const { data } = await api.get<Comments>(`${APIRoute.Comments}/${offerId}`);
+      dispatch(loadOfferComments(data));
+
+    } catch {
+
+      dispatch(setFormSendingStatus(false));
+
+    }
   }
 );
 
@@ -111,10 +122,10 @@ export const postFavoriteAction = createAsyncThunk<void, offerFavorite, {
   extra: AxiosInstance;
 }>(
   'user/postFavorite',
-  async ({offerId,status}, { dispatch, extra: api }) => {
+  async ({ offerId, status }, { dispatch, extra: api }) => {
     await api.post(`${APIRoute.Favorite}/${offerId}/${status}`);
 
-    const { data } = await api.get<FavouriteOffers>(APIRoute.Favorite);
+    const { data } = await api.get<ListOffers>(APIRoute.Favorite);
     dispatch(loadFavouriteOffers(data));
   }
 );
@@ -125,7 +136,7 @@ export const getOfferCommentsAction = createAsyncThunk<void, OfferId, {
   extra: AxiosInstance;
 }>(
   'user/getOfferComments',
-  async ({id}, { dispatch, extra: api }) => {
+  async ({ id }, { dispatch, extra: api }) => {
     const { data } = await api.get<Comments>(`${APIRoute.Comments}/${id}`);
     dispatch(loadOfferComments(data));
   }
@@ -137,7 +148,7 @@ export const getOfferNeibourghoodAction = createAsyncThunk<void, OfferId, {
   extra: AxiosInstance;
 }>(
   'user/getOfferNeibourghoods',
-  async ({id}, { dispatch, extra: api }) => {
+  async ({ id }, { dispatch, extra: api }) => {
     const { data } = await api.get<OffersInNeibourghood>(`${APIRoute.Offers}/${id}/nearby`);
     dispatch(loadOfferNeibourghood(data));
   }

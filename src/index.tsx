@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/App/app';
+import App from './components/App/App';
 import { Provider } from 'react-redux';
 import { store } from '../src/store/index';
 import { checkAuthAction, fetchListOffersAction } from './store/api-action';

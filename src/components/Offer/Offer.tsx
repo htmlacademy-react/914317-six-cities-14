@@ -1,9 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import OfferReviewsList from '../../components/Offer/offer-reviews-list';
-import OffersNear from '../../components/OffersNeibourghood/offers-neibourghood';
-import MapProxy from '../../components/Map/map-proxy';
+import OfferReviewsList from '../../components/offer/offer-reviews-list';
+import OffersNear from '../../components/offers-neibourghood/offers-neibourghood';
+import MapProxy from '../../components/map/map-proxy';
 import { getOfferCommentsAction, getOfferDataAction, getOfferNeibourghoodAction, postFavoriteAction } from '../../store/api-action';
-import { useAppDispatch, useAppSelector } from '../Hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import OfferGallery from './offer-gallery';
 import OfferGood from './offer-good';
 import OfferHost from './offer-host';
@@ -34,7 +34,7 @@ function Offer(): JSX.Element {
   const goods = currentOffer.goods;
   const host = currentOffer.host;
 
-  const handleItemHover = () => { };
+  const onHandleItemHover = () => { };
 
   function getMarkupByIsPremium(isPremium: boolean) {
     switch (isPremium) {
@@ -105,7 +105,7 @@ function Offer(): JSX.Element {
     dispatch(changeOffers(updatedlist));
   }
 
-  const handleClick = () => {
+  const onHandleClick = () => {
 
     switch (userAuthStatus) {
       case AuthState.Auth: return postFavorite();
@@ -118,14 +118,14 @@ function Offer(): JSX.Element {
     switch (isFavourite) {
       case true:
         return (
-          <button className="offer__bookmark-button offer__bookmark-button--active button" type="button" onClick={handleClick}>
+          <button className="offer__bookmark-button offer__bookmark-button--active button" type="button" onClick={onHandleClick}>
             <svg className="offer__bookmark-icon" width={31} height={33}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
             <span className="visually-hidden">In bookmarks</span>
           </button>);
       case false: return (
-        <button className="offer__bookmark-button button" type="button" onClick={handleClick}>
+        <button className="offer__bookmark-button button" type="button" onClick={onHandleClick}>
           <svg className="offer__bookmark-icon" width={31} height={33}>
             <use xlinkHref="#icon-bookmark" />
           </svg>
@@ -215,7 +215,7 @@ function Offer(): JSX.Element {
           <OffersNear
             offersInNeibourghood={offersInNeibourghood}
             isNeibourgh
-            onItemHover={handleItemHover}
+            onItemHover={onHandleItemHover}
           />
         </section>
       </div>

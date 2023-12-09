@@ -2,7 +2,6 @@ import { createAction } from '@reduxjs/toolkit';
 import { Comments, FullOffer, OffersInNeibourghood} from '../types/offer';
 import {ListOffers} from '../types/offer';
 import { AuthState } from '../const';
-import { FavouriteOffers } from '../types/favourite-offer';
 
 
 export const loadOffers = createAction('offers/loadOffers',(listOffers : ListOffers) => ({
@@ -21,6 +20,11 @@ export const checkAuthorizationStatus = createAction('user/checkAuthorization',(
   payload: authorizationStatus
 }));
 
+export const setFormSendingStatus = createAction('user/setFormSendingStatus',(formSendingStatus : boolean) => ({
+  payload: formSendingStatus
+}));
+
+
 export const changeCity = createAction('offers/changeCity', (city : string) => ({
   payload: city
 }));
@@ -37,7 +41,7 @@ export const loadOfferData = createAction('offers/loadCurrentOffer', (offer : Fu
   payload: offer
 }));
 
-export const loadFavouriteOffers = createAction('offers/loadFavouriteOffers', (favouriteOffers : FavouriteOffers) => ({
+export const loadFavouriteOffers = createAction('offers/loadFavouriteOffers', (favouriteOffers : ListOffers) => ({
   payload: favouriteOffers
 }));
 
@@ -52,3 +56,4 @@ export const loadOfferComments = createAction('offers/loadCurrentOfferComments',
 export const loadOfferNeibourghood = createAction('offers/loadCurrentOfferNeibourghood', (offersInNeibourghood : OffersInNeibourghood) => ({
   payload: offersInNeibourghood
 }));
+

@@ -1,19 +1,21 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { loadOffers, changeCity, changeSort, setDataLoadingStatus, checkAuthorizationStatus, loadOfferData, loadOfferComments, loadOfferNeibourghood, loadFavouriteOffers, loadUserEmail, changeFullOffer, changeOffers } from './action';
+import { loadOffers, changeCity, changeSort, setDataLoadingStatus, checkAuthorizationStatus, loadOfferData, loadOfferComments, loadOfferNeibourghood, loadFavouriteOffers, loadUserEmail, changeFullOffer, changeOffers, setFormSendingStatus } from './action';
 import { Comments, FullOffer, ListOffers, OffersInNeibourghood } from '../types/offer';
 import { City } from '../types/offer';
 import { findCity, sortOffers } from '../utils/utils';
 import { AuthState } from '../const';
-import { FavouriteOffers } from '../types/favourite-offer';
-import { addCurrentOffer } from '../components/Offer/offer-utils';
+import { addCurrentOffer } from '../components/offer/offer-utils';
 
 type InitialState = {
+  currentSort: number;
   userEmail: string;
   offers: ListOffers;
-  favouriteOffers: FavouriteOffers;
+  favouriteOffers: ListOffers;
   city: City;
   filtredOffers: ListOffers;
   isDataLoading: boolean;
+  isFormSending: boolean;
+  isFormSendingSuccessful: boolean;
   authorizationStatus: AuthState;
   currentOffer: FullOffer;
   currentOfferComments: Comments;
@@ -21,6 +23,7 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
+  currentSort: 1,
   userEmail: '',
   offers: [],
   favouriteOffers: [],
@@ -34,6 +37,8 @@ const initialState: InitialState = {
   },
   filtredOffers: [],
   isDataLoading: false,
+  isFormSending: false,
+  isFormSendingSuccessful: false,
   authorizationStatus: AuthState.Unknown,
   currentOffer: {
     id: '',
@@ -86,6 +91,7 @@ export const reducer = createReducer(initialState,
       })
       .addCase(changeSort, (state, action) => {
         state.filtredOffers = sortOffers(action.payload, state.offers);
+        state.currentSort = action.payload;
       })
       .addCase(loadOfferData, (state, action) => {
         state.currentOffer = action.payload;
@@ -108,6 +114,9 @@ export const reducer = createReducer(initialState,
       })
       .addCase(loadOfferComments, (state, action) => {
         state.currentOfferComments = action.payload;
+      })
+      .addCase(setFormSendingStatus, (state, action) => {
+        state.isFormSending = action.payload;
       })
       .addCase(checkAuthorizationStatus, (state, action) => {
         state.authorizationStatus = action.payload;

@@ -3,13 +3,13 @@ import LoginPage from '../../pages/login/login';
 import OfferPage from '../../pages/offer/offer';
 import FavouritesPage from '../../pages/favourites/favourites';
 import ErrorPage from '../../pages/error/error';
-import LoadingScreen from '../loadnigScreen/loadning-screen';
+import LoadingScreen from '../loading-screen/loadning-screen';
 
-import PrivateRoute from '../PrivateRoute/private-route';
+import PrivateRoute from '../private-route/private-route';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthState, AppRoute } from '../../const';
-import { useAppSelector } from '../Hooks';
+import { useAppSelector } from '../hooks';
 
 function App(): JSX.Element {
 

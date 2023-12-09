@@ -1,7 +1,7 @@
 import { Comments } from '../../types/offer';
-import OfferReview from '../../components/Offer/offer-review';
+import OfferReview from '../../components/offer/offer-review';
 import OfferForm from './offer-form';
-import { useAppSelector } from '../Hooks';
+import { useAppSelector } from '../hooks';
 import { AuthState } from '../../const';
 
 type OfferReviewsProps = {

@@ -1,6 +1,6 @@
-import { locations } from '../../mocks/locations';
-import { MouseEvent } from 'react';
-import { useAppSelector } from '../Hooks/index';
+import { locations } from '../../const';
+import { MouseEvent} from 'react';
+import { useAppSelector } from '../hooks/index';
 
 type LocationProps = {
   onClick: (currentLocation: string) => void;
@@ -25,7 +25,7 @@ function Locations({onClick}:LocationProps): JSX.Element {
         <li key={item.name} className="locations__item"
           onClick ={(evt: MouseEvent<HTMLLIElement>) => {
             evt.preventDefault();
-            onClick(evt.target.outerText);
+            onClick(evt.currentTarget.innerText);
           }}
         >
           <a className={`locations__item-link tabs__item ${getClassByCurrentLocation(currentCityName,item.name)}`} href="#">
